@@ -1,5 +1,7 @@
+import { AuthService } from './../../../services/auth/auth.service';
 import { Component } from '@angular/core';
-import { loginInterface } from '../authInterface';
+import { authInterface } from '../authInterface';
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 
 @Component({
   selector: 'app-register',
@@ -8,14 +10,20 @@ import { loginInterface } from '../authInterface';
 })
 export class RegisterComponent {
 
-  form: loginInterface = {
+  form: authInterface = {
     email: '',
     password: '',
     confirmPassword: '',
   };
 
+  constructor(private authService: AuthService) {}
+
   register() {
-    console.log(this.form);
+    this.authService.register(this.form);
+  }
+
+  isLoading(): boolean {
+    return this.authService.isLoading;
   }
 
 }

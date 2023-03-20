@@ -22,7 +22,9 @@
       <p *ngIf="confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched)" class="has-text-danger">Confirm Password is invalid</p>
     </div>
     <button class="button is-block is-primary is-medium is-fullwidth" [disabled]="regForm.form.invalid">
-      Register
+      <ng-container *ngIf="isLoading()">Loading ...</ng-container>
+      <ng-container *ngIf="!isLoading()">Register</ng-container>
     </button>
+
   </form>
 </div>

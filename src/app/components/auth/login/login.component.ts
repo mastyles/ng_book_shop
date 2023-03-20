@@ -1,20 +1,28 @@
-import { loginInterface } from '../authInterface';
+import { AuthService } from './../../../services/auth/auth.service';
+import { authInterface } from '../authInterface';
 import { Component } from '@angular/core';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
 
-  form: loginInterface = {
+  form: authInterface = {
     email: '',
-    password: ''
-  }
+    password: '',
+  };
+
+  constructor(private authService: AuthService) {}
 
   login() {
-    console.log(this.form);
+    this.authService.login(this.form);
+  }
+
+  isLoading(): boolean {
+    return this.authService.isLoading;
   }
 
 }

@@ -2,20 +2,24 @@
   <h3 class="title">Login</h3>
   <hr class="login-hr" />
   <p class="subtitle">Enter your email and password:</p>
-  <form (ngSubmit)="login()">
+
+  <form (ngSubmit)="login()" #loginForm="ngForm">
     <div class="field">
       <p class="control has-icons-left has-icons-right">
         <input class="input" type="email" name="email" placeholder="Email" [(ngModel)]="form.email" #email="ngModel" required />
       </p>
-      <p [hidden]="email.valid" class="has-text-danger">This email is invalid</p>
+      <p *ngIf="email.invalid && (email.dirty || email.touched)" class="has-text-danger">The email is invalid</p>
     </div>
     <div class="field">
       <p class="control has-icons-left">
-        <input class="input" type="password" name="password" placeholder="Password" [(ngModel)]="form.password" />
+        <input class="input" type="password" name="password" placeholder="Password" [(ngModel)]="form.password" #password="ngModel" required />
       </p>
+      <p *ngIf="password.invalid && (password.dirty || password.touched)" class="has-text-danger">Password is invalid</p>
     </div>
-    <button class="button is-block is-primary is-medium is-fullwidth">
-      Login
+    <button type="submit" [disabled]="loginForm.form.invalid" class="button is-block is-primary is-medium is-fullwidth">
+      <ng-container *ngIf="isLoading()">Loading ...</ng-container>
+      <ng-container *ngIf="!isLoading()">Login</ng-container>
     </button>
   </form>
+
 </div>
