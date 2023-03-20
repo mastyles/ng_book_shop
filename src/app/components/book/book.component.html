@@ -1,0 +1,21 @@
+<div class="column is-flex">
+  <div class="notification is-primary">
+    <figure class="image is-256x256">
+      <img src="{{ book.image }}" />
+    </figure>
+    <p>Title: {{book.name}}</p>
+    <p>Price: {{book.amount | currency}}</p>
+    <input *ngIf="!isInCart"
+      type="button"
+      (click)="addToCart()"
+      class="btn btn-primary"
+      value="Add to cart"
+    />
+    <input *ngIf="isInCart"
+      type="button"
+      (click)="removeFromCart()"
+      class="btn btn-primary"
+      value="Remove from cart"
+    />
+  </div>
+</div>
